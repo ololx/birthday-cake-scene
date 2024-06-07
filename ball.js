@@ -7,8 +7,9 @@ class Ball {
         MOVE_DOWN: 4
     });
 
-    constructor(canvas, radius, speed) {
+    constructor(canvas, sprite, radius, speed) {
         this.canvas = canvas;
+        this.sprite = sprite;
         this.context = canvas.getContext('2d');
         this.radius = radius;
         this.speed = speed;
@@ -27,13 +28,10 @@ class Ball {
 
             if (this.x >= this.canvas.width / 2) {
                 this.state = this.states.RUNNING;
+                this.sprite.switchAnimation('idle')
             }
         } else if (this.state === this.states.RUNNING) {
-            if (this.x >= (this.canvas.width / 2) + this.radius || this.x <= (this.canvas.width / 2) - this.radius) {
-                this.direction *= -1;
-            }
 
-            this.x += step * this.direction;
         } else if (this.state === this.states.MOVE_UP) {
             this.y -= step;
         } else if (this.state === this.states.MOVE_DOWN) {
@@ -48,14 +46,12 @@ class Ball {
         if (this.y <= (this.canvas.height / 2)) {
             this.state = this.states.MOVE_DOWN
         }
+
+        sprite.update(elapsedTime * 1000);
     }
 
     render() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.context.beginPath();
-        this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        this.context.fillStyle = 'black';
-        this.context.fill();
-        this.context.closePath();
+        sprite.draw(this.context, this.x - sprite.frameWidth / 2, this.y - sprite.frameHeight);
     }
 }
