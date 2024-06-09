@@ -122,7 +122,7 @@ class GameLoop {
             this.#processInput();
 
             while (this.#lag >= this.#frameDuration) {
-                this.#processUpdate(this.#frameDuration / 1000);
+                this.#processUpdate(this.#frameDuration);
                 this.#lag -= this.#frameDuration;
             }
 

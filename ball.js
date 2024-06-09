@@ -21,7 +21,7 @@ class Ball {
     }
 
     update(elapsedTime) {
-        const step = this.speed * elapsedTime;
+        const step = this.speed * elapsedTime / 1000;
 
         if (this.state === this.states.INIT) {
             this.x += step;
@@ -47,7 +47,7 @@ class Ball {
             this.state = this.states.MOVE_DOWN
         }
 
-        sprite.update(elapsedTime * 1000);
+        sprite.update(elapsedTime);
     }
 
     render() {

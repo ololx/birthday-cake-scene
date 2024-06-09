@@ -10,18 +10,29 @@ class Animation {
     constructor(frames) {
         this.frames = frames;
         this.currentFrameIndex = 0;
-        this.elapsedTime = 0;
+        this.elapsedTime = 0.0;
     }
 
     update(deltaTime) {
         const currentFrame = this.frames[this.currentFrameIndex];
         this.elapsedTime += deltaTime;
 
-        if (this.elapsedTime > currentFrame.duration) {
-            this.elapsedTime = 0;
+        if (this.elapsedTime >= currentFrame.duration) {
+            console.log("Duration " + currentFrame.duration + " elapsed " + this.elapsedTime)
+            this.elapsedTime -= currentFrame.duration;
             this.currentFrameIndex = (this.currentFrameIndex + 1) % this.frames.length;
         }
     }
+
+    /*update(deltaTime) {
+        const currentFrame = this.frames[this.currentFrameIndex];
+        this.elapsedTime += deltaTime;
+
+        while (this.elapsedTime > currentFrame.duration) {
+            this.elapsedTime -= currentFrame.duration;
+            this.currentFrameIndex = (this.currentFrameIndex + 1) % this.frames.length;
+        }
+    }*/
 
     getCurrentFrame() {
         return this.frames[this.currentFrameIndex];

@@ -37,7 +37,7 @@ console.log('Create sprite');
 let ball = new Ball(canvas, sprite, 20, 50);
 let gameController = new GameController([ball]);
 let fpsCounter = new FpsCounter(showFps);
-let gameLoop = new GameLoop(60, gameController, fpsCounter);
+let gameLoop = new GameLoop(90, gameController, fpsCounter);
 
 function showFps(fps) {
   document.getElementById('fps').innerText = fps;
@@ -47,7 +47,18 @@ function moveUp(fps) {
   ball.state = ball.states.MOVE_UP;
 }
 
-document.addEventListener("keydown", moveUp);
-document.addEventListener("click", moveUp);
+function startGame() {
+  if (gameLoop && gameLoop.isActive()) {
+    gameLoop.stop();
+  }
 
-gameLoop.start();
+  gameLoop = new GameLoop(parseInt(fpsInput.value, 10), gameController, fpsCounter);
+
+  gameLoop.start();
+}
+
+function stopGame() {
+  if (gameLoop) {
+    gameLoop.stop();
+  }
+}

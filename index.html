@@ -7,10 +7,22 @@
 </head>     
 <body>
     <div id="top" class="frame">
-        <p></p>
+        <p>GameLoop RealTime Example</p>
         <p>
             <span>FPS: </span><span id="fps">0</span>
         </p>
+        <div id="controls" class="frame">
+            <div id="inputs">
+                <label for="fpsInput">FPS Limit:</label>
+                <input type="number" id="fpsInput" value="100">
+                <label for="speedInput">Ball Speed:</label>
+                <input type="number" id="speedInput" value="200">
+            </div>
+            <div id="buttons">
+                <button onclick="startGame()">Start Loop</button>
+                <button onclick="stopGame()">Stop Loop</button>
+            </div>
+        </div>
     </div>
     <div id="middle" class="frame">
         <canvas id="canvas" width="640" height="480"></canvas>
