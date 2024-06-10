@@ -37,7 +37,7 @@ class FpsCounter {
 
 class GameController {
 
-    #gameObjects;
+    gameObjects;
 
     constructor(gameObjects = []) {
         gameObjects.forEach(gameObject => {
@@ -46,18 +46,18 @@ class GameController {
             }
         });
 
-        this.#gameObjects = gameObjects;
+        this.gameObjects = gameObjects;
     }
 
     processInput() {
     }
 
     processUpdate(elapsedTime) {
-        this.#gameObjects.forEach(gameObject => gameObject.update(elapsedTime));
+        this.gameObjects.forEach(gameObject => gameObject.update(elapsedTime));
     }
 
     processRender() {
-        this.#gameObjects.forEach(gameObject => gameObject.render());
+        this.gameObjects.forEach(gameObject => gameObject.render());
     }
 }
 

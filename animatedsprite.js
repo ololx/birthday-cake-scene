@@ -1,4 +1,5 @@
 class Frame {
+
     constructor(col, row, duration) {
         this.col = col;
         this.row = row;
@@ -7,6 +8,7 @@ class Frame {
 }
 
 class Animation {
+
     constructor(frames) {
         this.frames = frames;
         this.currentFrameIndex = 0;
@@ -18,21 +20,10 @@ class Animation {
         this.elapsedTime += deltaTime;
 
         if (this.elapsedTime >= currentFrame.duration) {
-            console.log("Duration " + currentFrame.duration + " elapsed " + this.elapsedTime)
             this.elapsedTime -= currentFrame.duration;
             this.currentFrameIndex = (this.currentFrameIndex + 1) % this.frames.length;
         }
     }
-
-    /*update(deltaTime) {
-        const currentFrame = this.frames[this.currentFrameIndex];
-        this.elapsedTime += deltaTime;
-
-        while (this.elapsedTime > currentFrame.duration) {
-            this.elapsedTime -= currentFrame.duration;
-            this.currentFrameIndex = (this.currentFrameIndex + 1) % this.frames.length;
-        }
-    }*/
 
     getCurrentFrame() {
         return this.frames[this.currentFrameIndex];
@@ -40,6 +31,7 @@ class Animation {
 }
 
 class AnimatedSprite {
+
     constructor(image, rows, cols, animations) {
         this.image = image;
         this.rows = rows;
@@ -48,6 +40,7 @@ class AnimatedSprite {
         this.frameHeight = image.height / rows;
         this.animations = animations;
         this.currentAnimation = null;
+        console.log(this);
     }
 
     switchAnimation(key) {

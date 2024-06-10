@@ -1,75 +1,29 @@
 let canvas = document.getElementById('canvas');
 let fpsInput = document.getElementById('fpsInput');
-const image = new Image();
-image.src = 'cake.png';
+
 let sprite;
-const idleFrames = [
-  new Frame(0, 0, 150),
-  new Frame(1, 0, 100),
-  new Frame(2, 0, 150),
-  new Frame(3, 0, 100),
-  new Frame(4, 0, 150)
-];
-
-const runFrames = [
-  new Frame(0, 1, 150),
-  new Frame(1, 1, 150),
-  new Frame(2, 1, 150),
-  new Frame(3, 1, 150)
-];
-
 let ball;
+let banner;
 let gameController;
 let fpsCounter;
 let gameLoop;
 
-const animations = {
-  idle: new Animation(idleFrames),
-  right: new Animation(runFrames),
-  left: new Animation(runFrames)
-};
-
-image.onload = function() {
-  console.log('Image loaded successfully');
-
-  sprite = new AnimatedSprite(image, 2, 5, animations);
-  sprite.switchAnimation('idle');
-  console.log('Create sprite');
-
-  ball = new Ball(canvas, sprite, 20, 50);
-  gameController = new GameController([ball]);
-  fpsCounter = new FpsCounter(showFps);
-  gameLoop = new GameLoop(90, gameController, fpsCounter);
-};
-
-image.onerror = function() {
-  console.error('Failed to load image');
-};
+console.log('Image loaded successfully');
+ball = new CakeFactory().newInstance(canvas, 'cake.png', canvas.width / 2, canvas.height, 100);
+banner = new BannerFactory().newInstance(canvas, 'happy_birthday.png', canvas.width / 2, 250);
+gameController = new BirthdayCakeController(canvas, ball, banner);
+fpsCounter = new FpsCounter(showFps);
+gameLoop = new GameLoop(120, gameController, fpsCounter);
+gameLoop.start();
 
 function showFps(fps) {
   document.getElementById('fps').innerText = fps;
 }
 
 function moveUp(fps) {
-  ball.changeState(ball.states.RIGHT);
-}
-
-function startGame() {
-  if (gameLoop && gameLoop.isActive()) {
-    gameLoop.stop();
-  }
-
-  gameLoop = new GameLoop(parseInt(fpsInput.value, 10), gameController, fpsCounter);
-
-  gameLoop.start();
-}
-
-function stopGame() {
-  if (gameLoop) {
-    gameLoop.stop();
-  }
+  ball.changeState(CAKE_STATES.RIGHT);
+  banner.changeState(BANNER_STATES.LIGHT);
 }
 
 document.addEventListener("keydown", moveUp.bind());
-//document.addEventListener("click", moveUp.bind());
-
+document.addEventListener("click", moveUp.bind());
