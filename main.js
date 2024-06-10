@@ -2,27 +2,22 @@ let canvas = document.getElementById('canvas');
 let fpsInput = document.getElementById('fpsInput');
 
 let sprite;
-let ball;
+let cake;
 let banner;
 let gameController;
 let fpsCounter;
 let gameLoop;
 
 console.log('Image loaded successfully');
-ball = new CakeFactory().newInstance(canvas, 'cake.png', canvas.width / 2, canvas.height, 100);
+cake = new CakeFactory().newInstance(canvas, 'cake.png', 50);
 banner = new BannerFactory().newInstance(canvas, 'happy_birthday.png', canvas.width / 2, 250);
-gameController = new BirthdayCakeController(canvas, ball, banner);
-fpsCounter = new FpsCounter(showFps);
+gameController = new BirthdayCakeController(canvas, cake, banner);
+fpsCounter = new FpsCounter((fps) => console.log(fps));
 gameLoop = new GameLoop(120, gameController, fpsCounter);
 gameLoop.start();
 
-function showFps(fps) {
-  document.getElementById('fps').innerText = fps;
-}
-
 function moveUp(fps) {
-  ball.changeState(CAKE_STATES.RIGHT);
-  banner.changeState(BANNER_STATES.LIGHT);
+  gameController.startAnimation();
 }
 
 document.addEventListener("keydown", moveUp.bind());
