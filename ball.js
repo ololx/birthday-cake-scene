@@ -1,10 +1,10 @@
 class Ball {
 
     states = Object.freeze({
-        INIT: 1,
-        RUNNING: 2,
-        MOVE_UP: 3,
-        MOVE_DOWN: 4
+        IDLE: 'idle',
+        RIGHT: 'right',
+        LEFT: 'left',
+        LIGHT: 'light'
     });
 
     constructor(canvas, sprite, radius, speed) {
@@ -13,41 +13,35 @@ class Ball {
         this.context = canvas.getContext('2d');
         this.radius = radius;
         this.speed = speed;
-        this.x = radius;
+        this.x = canvas.width/2 - radius;
         this.y = canvas.height - radius;
-        this.state = this.states.INIT;
-        this.direction = 1;
-        this.jdirection = -1;
+        this.state = this.states.IDLE;
     }
 
     update(elapsedTime) {
         const step = this.speed * elapsedTime / 1000;
 
-        if (this.state === this.states.INIT) {
-            this.x += step;
-
-            if (this.x >= this.canvas.width / 2) {
-                this.state = this.states.RUNNING;
-                this.sprite.switchAnimation('idle')
+        if (this.state === this.states.RIGHT) {
+            if (this.x >= canvas.width - this.radius) {
+                this.changeState(this.states.LEFT);
+            } else {
+                this.x += step;
             }
-        } else if (this.state === this.states.RUNNING) {
-
-        } else if (this.state === this.states.MOVE_UP) {
-            this.y -= step;
-        } else if (this.state === this.states.MOVE_DOWN) {
-            this.y += step;
-
-            if (this.y > this.canvas.height - this.radius) {
-                this.y = this.canvas.height - this.radius;
-                this.state = this.states.RUNNING;
+        } else if (this.state === this.states.LEFT) {
+            if (this.x <= canvas.width/2 - this.radius) {
+                this.x = canvas.width/2 - this.radius;
+                this.changeState(this.states.IDLE);
+            } else {
+                this.x -= step;
             }
-        }
-
-        if (this.y <= (this.canvas.height / 2)) {
-            this.state = this.states.MOVE_DOWN
         }
 
         sprite.update(elapsedTime);
+    }
+
+    changeState(state = this.states.IDLE) {
+        this.state = state;
+        this.sprite.switchAnimation(state);
     }
 
     render() {
