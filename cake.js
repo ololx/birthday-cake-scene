@@ -76,11 +76,18 @@ class CakeFactory {
             new Frame(2, 2, 200)
         ];
 
+        this.returnFrames = [
+            new Frame(3, 2, 200),
+            new Frame(4, 2, 200),
+            new Frame(0, 3, 200),
+            new Frame(1, 3, 200)
+        ];
+
         this.animations = {
             INIT: new Animation(this.idleFrames),
             IDLE: new Animation(this.idleFrames),
             MOVE_RIGHT: new Animation(this.runFrames),
-            MOVE_LEFT: new Animation(this.runFrames),
+            MOVE_LEFT: new Animation(this.returnFrames),
             LIGHT: new Animation(this.lightFrames)
         };
     }
@@ -88,11 +95,11 @@ class CakeFactory {
     newInstance(canvas, image, speed = 100) {
         return new Cake(
             canvas,
-            new AnimatedSprite(image, 3, 5, this.animations),
+            new AnimatedSprite(image, 4, 5, this.animations),
             canvas.width / 2,
-            canvas.height - (image.height / 6),
+            canvas.height - (image.height / 8),
             image.width / 5,
-            image.height / 3
+            image.height / 4
         );
     }
 }
