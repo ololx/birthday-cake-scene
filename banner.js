@@ -19,7 +19,10 @@ class Banner {
 
     changeState(state = BANNER_STATES.IDLE) {
         this.state = state;
-        this.sprite.switchAnimation(state);
+
+        if (state !== BANNER_STATES.IDLE) {
+            this.sprite.switchAnimation(state);
+        }
     }
 
     render() {

@@ -19,7 +19,13 @@ body {
     font-family: "Raleway", sans-serif;
     font-size: 12px;
     color: #00ff00 !important;
-    background: #101010;
+    background: #87CEFA;
+}
+
+body.animate {
+    background: linear-gradient(45deg, #ff0000, #ff9900, #FFD700, #00ff00, #00ffff, #0000ff);
+    background-size: 600% 600%;
+    animation: gradientAnimation 5s ease infinite;
 }
 
 .frame {
@@ -34,4 +40,17 @@ body {
 #canvas {
     height: 600px;
     width: 800px;
+}
+
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }

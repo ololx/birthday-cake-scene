@@ -1,4 +1,5 @@
 const CAKE_STATES = Object.freeze({
+    INITIAL: 'INIT',
     IDLE: 'IDLE',
     RIGHT: 'MOVE_RIGHT',
     LEFT: 'MOVE_LEFT',
@@ -16,7 +17,7 @@ class Cake {
         this.width = width;
         this.height = height;
         this.speed = speed;
-        this.changeState(CAKE_STATES.IDLE);
+        this.changeState(CAKE_STATES.INITIAL);
     }
 
     update(elapsedTime) {
@@ -40,7 +41,7 @@ class Cake {
         this.sprite.update(elapsedTime);
     }
 
-    changeState(state = CAKE_STATES.IDLE) {
+    changeState(state = CAKE_STATES.INITIAL) {
         this.state = state;
         this.sprite.switchAnimation(state);
     }
@@ -78,6 +79,7 @@ class CakeFactory {
         ];
 
         this.animations = {
+            INIT: new Animation(this.idleFrames),
             IDLE: new Animation(this.idleFrames),
             MOVE_RIGHT: new Animation(this.runFrames),
             MOVE_LEFT: new Animation(this.runFrames),
@@ -94,6 +96,61 @@ class CakeFactory {
             canvas.height - (this.#image.height / 6),
             this.#image.width / 5,
             this.#image.height / 3
+        );
+    }
+}
+
+CAKE_LABEL_STATES = Object.freeze({
+    HIDDEN: 0,
+    TOUCH_ME: 1,
+    MESSAGE: 0
+});
+
+class CakeLabel {
+
+    constructor(canvas, text, x, y, font = 'bold 30px Comic Sans MS', color = '#fff', outlineColor = '#000') {
+        this.canvas = canvas;
+        this.context = canvas.getContext('2d');
+        this.text = text;
+        this.x = x;
+        this.y = y;
+        this.font = font;
+        this.color = color;
+        this.outlineColor = outlineColor;
+        this.state = CAKE_LABEL_STATES.TOUCH_ME;
+    }
+
+    render() {
+        if (this.state !== CAKE_LABEL_STATES.HIDDEN) {
+            this.context.font = this.font;
+            this.context.textAlign = 'center';
+            this.context.textBaseline = 'middle';
+            this.context.fillStyle = this.color;
+            this.context.lineWidth = 5;
+            this.context.strokeStyle = this.outlineColor;
+            this.context.strokeText(this.text, this.x, this.y);
+            this.context.fillText(this.text, this.x, this.y);
+        }
+    }
+
+    changeState(state = CAKE_LABEL_STATES.HIDDEN) {
+        this.state = state;
+    }
+}
+
+class CakeLabelFactory {
+
+    #image = new Image();
+
+    constructor() {
+    }
+
+    newInstance(cake) {
+        return new CakeLabel(
+            cake.canvas,
+            'Touch Me!!!',
+            cake.x,
+            cake.y - ((cake.height / 6) * 4)
         );
     }
 }

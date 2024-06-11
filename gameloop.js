@@ -37,27 +37,25 @@ class FpsCounter {
 
 class GameController {
 
-    gameObjects;
-
     constructor(gameObjects = []) {
-        gameObjects.forEach(gameObject => {
-            if (typeof gameObject.update !== 'function' || typeof gameObject.render !== 'function') {
-                console.error(`Object ${gameObject} must have a processUpdate and processRender methods`);
-            }
-        });
-
         this.gameObjects = gameObjects;
+        this.updatableObjects = gameObjects.filter(gameObject => {
+            return gameObject && typeof gameObject.update === 'function';
+        });
+        this.renderableObjects = gameObjects.filter(gameObject => {
+            return gameObject && typeof gameObject.render === 'function';
+        });
     }
 
     processInput() {
     }
 
     processUpdate(elapsedTime) {
-        this.gameObjects.forEach(gameObject => gameObject.update(elapsedTime));
+        this.updatableObjects.forEach(updatable => updatable.update(elapsedTime));
     }
 
     processRender() {
-        this.gameObjects.forEach(gameObject => gameObject.render());
+        this.renderableObjects.forEach(rendarable => rendarable.render());
     }
 }
 

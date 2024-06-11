@@ -1,7 +1,7 @@
 class BirthdayCakeController extends GameController {
 
-    constructor(canvas, cake, banner) {
-        super([cake, banner]);
+    constructor(canvas, cake, banner, cakeLabel, world) {
+        super([cake, banner, cakeLabel, world]);
         this.canvas = canvas;
         this.context = canvas.getContext('2d');
         this.lightWaiting = 1600;
@@ -13,6 +13,7 @@ class BirthdayCakeController extends GameController {
 
         if (this.animationStarted && this.gameObjects[0].state === CAKE_STATES.LIGHT) {
             if (this.lightWaiting <= 0) {
+                this.gameObjects[3].changeState(WORLD_STATES.LIGHT);
                 this.gameObjects[1].changeState(BANNER_STATES.LIGHT);
                 this.gameObjects[0].changeState(CAKE_STATES.LEFT);
             }
@@ -27,9 +28,11 @@ class BirthdayCakeController extends GameController {
     }
 
     startAnimation() {
-        if (!this.animationStarted && this.gameObjects[0].state === CAKE_STATES.IDLE) {
+        if (!this.animationStarted && this.gameObjects[0].state === CAKE_STATES.INITIAL) {
             this.gameObjects[0].changeState(CAKE_STATES.RIGHT);
             this.gameObjects[1].changeState(BANNER_STATES.IDLE);
+            this.gameObjects[3].changeState(WORLD_STATES.IDLE);
+            this.gameObjects[2].changeState(CAKE_LABEL_STATES.HIDDEN);
             this.animationStarted = true;
         }
     }
