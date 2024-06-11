@@ -1,22 +1,3 @@
-let gameController;
-
-function moveUp() {
-    gameController.startAnimation();
-}
-
-function escapeHTML(str) {
-    return str.replace(/[&<>"']/g, function(match) {
-        const escape = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#39;'
-        };
-        return escape[match];
-    });
-}
-
 function loadImage(src) {
     return new Promise((resolve, reject) => {
         const img = new Image();
@@ -26,9 +7,7 @@ function loadImage(src) {
     });
 }
 
-document.addEventListener("keydown", moveUp.bind());
-document.addEventListener("click", moveUp.bind());
-
+let gameController;
 async function init() {
     const imageSrc1 = 'cake.png';
     const imageSrc2 = 'happy_birthday.png';
@@ -54,3 +33,23 @@ async function init() {
 
     gameLoop.start();
 }
+
+function moveUp() {
+    gameController.startAnimation();
+}
+
+function escapeHTML(str) {
+    return str.replace(/[&<>"']/g, function(match) {
+        const escape = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        };
+        return escape[match];
+    });
+}
+
+document.addEventListener("keydown", moveUp.bind());
+document.addEventListener("click", moveUp.bind());

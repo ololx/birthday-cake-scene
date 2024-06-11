@@ -144,7 +144,7 @@ class CakeLabel {
             if (this.state === CAKE_LABEL_STATES.MESSAGE && this.messages.length > 0) {
                 this.context.strokeText(this.messages[this.currentMessageIndex], this.x, this.y);
                 this.context.fillText(this.messages[this.currentMessageIndex], this.x, this.y);
-            } else {
+            } else if (this.state === CAKE_LABEL_STATES.TOUCH_ME) {
                 this.context.strokeText(this.text, this.x, this.y);
                 this.context.fillText(this.text, this.x, this.y);
             }
@@ -169,7 +169,7 @@ class CakeLabelFactory {
             "Touch Me!!!",
             messages,
             cake.x,
-            cake.y - ((cake.height / 6) * 4)
+            cake.y - ((cake.height / 5) * 3)
         );
     }
 }
