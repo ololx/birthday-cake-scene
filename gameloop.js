@@ -70,7 +70,7 @@ class GameLoop {
     #frameDuration;
     #lag = 0;
 
-    constructor(fpsLimit = 1, gameController, fpsCounter) {
+    constructor(fpsLimit = 1, gameController, fpsCounter = new FpsCounter()) {
         this.#targetFPS = fpsLimit;
         this.#frameDuration = 1000 / fpsLimit;
         this.#gameController = gameController;

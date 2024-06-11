@@ -49,8 +49,7 @@ async function init() {
     const cakeLabel = new CakeLabelFactory().newInstance(cake, messages);
     const world = new WorldFactory().newInstance(document);
     gameController = new BirthdayCakeController(canvas, cake, banner, cakeLabel, world);
-    const fpsCounter = new FpsCounter((fps) => {
-    });
+    const fpsCounter = new FpsCounter();
     const gameLoop = new GameLoop(60, gameController, fpsCounter);
 
     gameLoop.start();
