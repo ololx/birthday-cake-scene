@@ -20,6 +20,11 @@ class BirthdayCakeController extends GameController {
 
             this.lightWaiting -= elapsedTime;
         }
+
+        if (this.gameObjects[2].state !== CAKE_LABEL_STATES.MESSAGE && this.gameObjects[0].state === CAKE_STATES.IDLE) {
+            console.log(this.gameObjects[0].state);
+            this.gameObjects[2].changeState(CAKE_LABEL_STATES.MESSAGE);
+        }
     }
 
     processRender() {
