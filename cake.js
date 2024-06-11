@@ -53,8 +53,6 @@ class Cake {
 
 class CakeFactory {
 
-    #image = new Image();
-
     constructor() {
         this.idleFrames = [
             new Frame(0, 0, 200),
@@ -87,15 +85,14 @@ class CakeFactory {
         };
     }
 
-    newInstance(canvas, imagePath, speed = 100) {
-        this.#image.src = imagePath;
+    newInstance(canvas, image, speed = 100) {
         return new Cake(
             canvas,
-            new AnimatedSprite(this.#image, 3, 5, this.animations),
+            new AnimatedSprite(image, 3, 5, this.animations),
             canvas.width / 2,
-            canvas.height - (this.#image.height / 6),
-            this.#image.width / 5,
-            this.#image.height / 3
+            canvas.height - (image.height / 6),
+            image.width / 5,
+            image.height / 3
         );
     }
 }
@@ -144,7 +141,7 @@ class CakeLabel {
             this.context.lineWidth = 5;
             this.context.strokeStyle = this.outlineColor;
 
-            if (this.state === CAKE_LABEL_STATES.MESSAGE) {
+            if (this.state === CAKE_LABEL_STATES.MESSAGE && this.messages.length > 0) {
                 this.context.strokeText(this.messages[this.currentMessageIndex], this.x, this.y);
                 this.context.fillText(this.messages[this.currentMessageIndex], this.x, this.y);
             } else {
@@ -156,7 +153,6 @@ class CakeLabel {
 
     changeState(state = CAKE_LABEL_STATES.HIDDEN) {
         this.state = state;
-        console.log(state)
     }
 }
 

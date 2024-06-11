@@ -37,12 +37,6 @@ body.animate {
     width: 100%;
 }
 
-#canvas {
-    height: 600px;
-    width: 800px;
-}
-
-
 @keyframes gradientAnimation {
     0% {
         background-position: 0% 50%;

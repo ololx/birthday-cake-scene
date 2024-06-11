@@ -34,8 +34,6 @@ class Banner {
 
 class BannerFactory {
 
-    #image = new Image();
-
     constructor() {
         this.lightFrames = [
             new Frame(0, 0, 8),
@@ -49,8 +47,7 @@ class BannerFactory {
         };
     }
 
-    newInstance(canvas, imagePath, x, y) {
-        this.#image.src = imagePath;
-        return new Banner(canvas, new AnimatedSprite(this.#image, 1, 4, this.animations), x, y);
+    newInstance(canvas, image, x, y) {
+        return new Banner(canvas, new AnimatedSprite(image, 1, 4, this.animations), x, y);
     }
 }
