@@ -9,8 +9,8 @@ function loadImage(src) {
 
 let gameController;
 async function init() {
-    const imageSrc1 = 'cake.png';
-    const imageSrc2 = 'happy_birthday.png';
+    const imageSrc1 = 'assets/cake.png';
+    const imageSrc2 = 'assets/happy_birthday.png';
 
     const [image1, image2] = await Promise.all([
         loadImage(imageSrc1),
@@ -53,3 +53,5 @@ function escapeHTML(str) {
 
 document.addEventListener("keydown", moveUp.bind());
 document.addEventListener("click", moveUp.bind());
+
+addEventListener('load', init.bind());
